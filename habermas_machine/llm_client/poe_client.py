@@ -92,7 +92,7 @@ class PoeClient(base_client.LLMClient):
     response_text = ''
     try:
       response_text = self._client.chat.completions.create(
-        model=model_name # Name on Poe
+        model=self._model_name, # Name on Poe
         messages=[
           {"role": "system", "content": "You are a helpful assistant."},
           {"role": "user", "content": prompt},
