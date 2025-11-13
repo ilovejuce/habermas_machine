@@ -92,17 +92,19 @@ class PoeClient(base_client.LLMClient):
     # --- API Call and Response Handling ---
     response_text = ''
     try:
-      response_text = self._client.chat.completions.create(
+      resp = self._client.chat.completions.create(
         model=self._model_name, # Name on Poe
         messages=[
           {"role": "system", "content": "You are a helpful assistant."},
           {"role": "user", "content": prompt},
       ],
 )
-      # The poe-api library streams the response in chunks.
-      # We concatenate the 'text_new' part of each chunk to build the full response.
-      # 'with_chat_break=True' ensures that each prompt starts a new, clean conversation
-      # context, which is suitable for independent sampling tasks.
+      # Extract Model Text Safely
+    response_text = ''
+    if resp and getattr(resp, "choices", None):
+      msg = resp.choices[0].message
+      if msg and getattr(msg, "content", None):
+        response_text = msg.content
 
     except Exception as e:
       # Catching a broad exception as the library might raise various errors
