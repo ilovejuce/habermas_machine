@@ -88,7 +88,7 @@ class PoeClient(base_client.LLMClient):
       print(f'Sleeping for 10 seconds to respect Poe rate limits...')
       time.sleep(10)
 
-        sample = self._model.generate_content(
+    sample = self._model.generate_content(
         prompt,
         generation_config=genai.GenerationConfig(
             temperature=temperature,
