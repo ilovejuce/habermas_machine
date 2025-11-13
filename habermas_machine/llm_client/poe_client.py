@@ -95,10 +95,7 @@ class PoeClient(base_client.LLMClient):
       # We concatenate the 'text_new' part of each chunk to build the full response.
       # 'with_chat_break=True' ensures that each prompt starts a new, clean conversation
       # context, which is suitable for independent sampling tasks.
-      for chunk in self._client.send_message(
-          self._model_name, prompt, with_chat_break=True
-      ):
-        response_text += chunk['text_new']
+      response = sample.candidates[0].content.parts[0].text
 
     except Exception as e:
       # Catching a broad exception as the library might raise various errors
