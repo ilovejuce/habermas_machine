@@ -42,6 +42,7 @@ class LLMCLient(enum.Enum):
   """LLM client."""
   AISTUDIO = 'aistudio'
   MOCK = 'mock'
+  POE = 'poe'
 
   def get_client(self, model: str) -> base_client.LLMClient:
     if self is self.MOCK:
@@ -49,6 +50,8 @@ class LLMCLient(enum.Enum):
       return mock_client.MockClient()
     elif self is self.AISTUDIO:
       return aistudio_client.AIStudioClient(model_name=model)
+    elif self is self.POE:
+      return poe_client.PoeClient(model_name=model) """Added Poe Model"""
     else:
       raise ValueError('Unknown LLM client was specified.')
 
