@@ -50,6 +50,11 @@ class PoeClient(base_client.LLMClient):
     self._calls_between_sleeping = 10
     self._n_calls = 0
 
+    self._client = openai.OpenAI(
+    api_key=os.getenv("POE_API_KEY"), # https://poe.com/api_key
+    base_url="https://api.poe.com/v1",
+)
+
   @override
   def sample_text(
       self,
