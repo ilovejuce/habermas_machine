@@ -53,6 +53,7 @@ class PoeClient(base_client.LLMClient):
     self._model = openai.OpenAI(
     api_key=os.getenv("POE_API_KEY"), # https://poe.com/api_key
     base_url="https://api.poe.com/v1",
+    model_name=self._model_name,
 )
 
   @override
@@ -90,7 +91,7 @@ class PoeClient(base_client.LLMClient):
 
     sample = self._model.generate_content(
         prompt,
-        generation_config=genai.GenerationConfig(
+        generation_config=openai.GenerationConfig(
             temperature=temperature,
             max_output_tokens=max_tokens,
             stop_sequences=terminators,
