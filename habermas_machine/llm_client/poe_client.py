@@ -6,11 +6,11 @@ It replaces the original implementation that used the Google AI Studio (Gemini) 
 from collections.abc import Collection
 import os
 import time
+import openai
 
 # The 'poe-api' library is used to interact with Poe.
 # You can install it with: pip install poe-api
 from openai import OpenAI
-import openai
 from typing_extensions import override
 
 from habermas_machine.llm_client import base_client
