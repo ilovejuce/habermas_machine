@@ -97,7 +97,6 @@ class PoeClient(base_client.LLMClient):
           {"role": "system", "content": "You are a helpful assistant."},
           {"role": "user", "content": prompt},
       ],
-      temperature=temperature
       max_tokens=max_tokens
       stop=list(terminators) if terminators else None,
 )
