@@ -97,8 +97,6 @@ class PoeClient(base_client.LLMClient):
           {"role": "system", "content": "You are a helpful assistant."},
           {"role": "user", "content": prompt},
       ],
-      max_tokens=max_tokens
-      stop=list(terminators) if terminators else None,
 )
       # The poe-api library streams the response in chunks.
       # We concatenate the 'text_new' part of each chunk to build the full response.
