@@ -91,32 +91,32 @@ class PoeClient(base_client.LLMClient):
 
     # --- API Call and Response Handling ---
     response_text = ''
-try:
-    resp = self._client.chat.completions.create(
-        model=self._model_name,  # Name on Poe
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt},
-        ],
-        # temperature=temperature,
-        # max_tokens=max_tokens,
-        # stop=list(terminators) if terminators else None,
-        stream=False,
-    )
-
-    # Extract Model Text Safely
-    response_text = ""
-    if resp and getattr(resp, "choices", None):
-        msg = resp.choices[0].message
-        if msg and getattr(msg, "content", None):
-            response_text = msg.content
-
-except Exception as e:
-    # Catching a broad exception as the library might raise various errors
-    # (e.g., connection errors, invalid bot name, token issues).
-    print(f"An error occurred with the Poe API call: {e}")
-    print(f"Bot: {self._model_name}")
-    print(f"Prompt: {prompt}")
+    try:
+        resp = self._client.chat.completions.create(
+            model=self._model_name,  # Name on Poe
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt},
+            ],
+            # temperature=temperature,
+            # max_tokens=max_tokens,
+            # stop=list(terminators) if terminators else None,
+            stream=False,
+        )
+    
+        # Extract Model Text Safely
+        response_text = ""
+        if resp and getattr(resp, "choices", None):
+            msg = resp.choices[0].message
+            if msg and getattr(msg, "content", None):
+                response_text = msg.content
+    
+    except Exception as e:
+        # Catching a broad exception as the library might raise various errors
+        # (e.g., connection errors, invalid bot name, token issues).
+        print(f"An error occurred with the Poe API call: {e}")
+        print(f"Bot: {self._model_name}")
+        print(f"Prompt: {prompt}")
     return ""  # Return an empty string on failure, maintaining original behavior.
 
     # --- Post-processing ---
