@@ -69,18 +69,7 @@ class PoeClient(base_client.LLMClient):
   ) -> str:
     """
     Generates text by sending a prompt to a specified Poe bot.
-
-    Note: The underlying 'poe-api' library does not support several parameters
-    from the base client's interface. These parameters are ignored.
     """
-    # --- Parameter Handling ---
-    # The Poe API, as accessed by the 'poe-api' library, does not directly
-    # support the following parameters. They are included for interface
-    # compatibility but are not used in the API call.
-    del max_tokens  # Not supported. Length is controlled by the model's output.
-    del temperature # Not supported. Temperature is configured on the Poe bot itself.
-    del timeout     # Not supported. Timeout is handled by the underlying HTTP library.
-    del seed        # Not supported. Poe does not offer a seed for reproducibility.
 
     # --- Rate Limiting ---
     self._n_calls += 1
@@ -98,9 +87,9 @@ class PoeClient(base_client.LLMClient):
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt},
             ],
-            # temperature=temperature,
-            # max_tokens=max_tokens,
-            # stop=list(terminators) if terminators else None,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            stop=list(terminators) if terminators else None,
             stream=False,
         )
     
