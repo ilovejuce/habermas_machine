@@ -107,7 +107,4 @@ class PoeClient(base_client.LLMClient):
         print(f"Bot: {self._model_name}")
         print(f"Prompt: {prompt}")
 
-    # --- Post-processing ---
-    # Since the Poe API doesn't support 'stop_sequences' (terminators),
-    # we manually truncate the response at the first occurrence of a terminator.
     return utils.truncate(response_text, delimiters=terminators) if response_text else ""
