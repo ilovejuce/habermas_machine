@@ -121,4 +121,4 @@ class PoeClient(base_client.LLMClient):
     # --- Post-processing ---
     # Since the Poe API doesn't support 'stop_sequences' (terminators),
     # we manually truncate the response at the first occurrence of a terminator.
-    return response_text
+    return utils.truncate(response_text, delimiters=terminators) if response_text else ""
