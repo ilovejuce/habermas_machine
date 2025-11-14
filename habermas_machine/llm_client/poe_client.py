@@ -117,7 +117,7 @@ class PoeClient(base_client.LLMClient):
         print(f"An error occurred with the Poe API call: {e}")
         print(f"Bot: {self._model_name}")
         print(f"Prompt: {prompt}")
-    return ""  # Return an empty string on failure, maintaining original behavior.
+        return ""  # Return an empty string on failure, maintaining original behavior.
 
     # --- Post-processing ---
     # Since the Poe API doesn't support 'stop_sequences' (terminators),
